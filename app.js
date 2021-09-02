@@ -23,7 +23,7 @@ const searchResult = searchText => {
 }
 
 const loadDetails = results => {
-    console.log(results)
+    document.getElementById('search-box').value = ''
     const resultBox = document.getElementById('result-box') 
     const countDivShow = document.getElementById('countDivShow') 
     countDivShow.textContent = ''
