@@ -1,7 +1,6 @@
 const loadBooks = () =>{
     const searchBox = document.getElementById('search-box')
     const searchValue = searchBox.value
-    searchValue.value = ''
     searchResult(searchValue)
 }
 
@@ -16,6 +15,7 @@ const loadDetails = results => {
     console.log(results)
     const resultBox = document.getElementById('result-box') 
     const countDivShow = document.getElementById('countDivShow') 
+    countDivShow.textContent = ''
     const parentDiv = document.createElement('div')
     // Counting search result
     const countResult = document.createElement('div')
@@ -28,20 +28,21 @@ const loadDetails = results => {
         const div = document.createElement('div')
         const imageUrl = (`https://covers.openlibrary.org/b/id/${result.cover_i}-M.jpg`)
         div.innerHTML = `
-            <img src = ${imageUrl ? imageUrl:'No Image'}  width='200px' height='300px'>
-            <h5> Name : ${result.title}</h5>
-            <h5>Author Name: ${result.author_name}</h5>
-            <h5>Publish year : ${result.first_publish_year}</h5>
-            <h6>Publishers : ${result.publisher}</h6>
+            <div class="card h-100">
+                <img src = ${imageUrl ? imageUrl:'No Image'}  width='250px' height='300px'>
+                <h5> Name : ${result.title}</h5>
+                <h5>Author Name: ${result.author_name}</h5>
+                <h5>Publish year : ${result.first_publish_year}</h5>
+                <h6>Publishers : ${result.publisher}</h6>
+            </div>
         `
         // Addig styles to child div
         div.classList.add('p-1')
-        div.style.border = '3px solid green'
+        div.style.border = '3px solid #ccc'
         div.style.borderRadius = '10px'
         div.style.color = '#000'
         div.style.padding = '10px'
-        div.style.margin = '3px'
-
+        div.style.margin = '5px'
         parentDiv.append(div)
     })
     // Adding style in
@@ -49,5 +50,6 @@ const loadDetails = results => {
     parentDiv.style.display = 'grid'
     parentDiv.style.gridTemplateColumns = 'repeat(5, 1fr)'
     // Adding All Element in Result-Box div
+    resultBox.textContent = ''
     resultBox.append(parentDiv)
 }
