@@ -5,10 +5,21 @@ const loadBooks = () =>{
 }
 
 const searchResult = searchText => {
-    url = `https://openlibrary.org/search.json?q=${searchText}`
-    fetch(url)
-    .then(res => res.json())
-    .then(data => loadDetails(data.docs))
+    if(searchText !== ''){
+        url = `https://openlibrary.org/search.json?q=${searchText}`
+        fetch(url)
+        .then(res => res.json())
+        .then(data => loadDetails(data.docs))
+    }
+    else{
+        const emptyDiv = document.getElementById('countDivShow')
+        emptyDiv.innerHTML = `
+        <h1>Invalid Search Text</h1>
+        <p class="text-center">Please Enter Valid Name</p>
+        `
+        const resultBox = document.getElementById('result-box') 
+        resultBox.innerText= ''
+    }
 }
 
 const loadDetails = results => {
@@ -29,7 +40,7 @@ const loadDetails = results => {
         const imageUrl = (`https://covers.openlibrary.org/b/id/${result.cover_i}-M.jpg`)
         div.innerHTML = `
             <div class="card h-100">
-                <img src = ${imageUrl ? imageUrl:'No Image'}  width='250px' height='300px'>
+                <img src = ${imageUrl ? imageUrl:'No Image'} class="mx-auto"  width='250px' height='300px'>
                 <h5> Name : ${result.title}</h5>
                 <h5>Author Name: ${result.author_name}</h5>
                 <h5>Publish year : ${result.first_publish_year}</h5>
@@ -48,7 +59,7 @@ const loadDetails = results => {
     // Adding style in
     parentDiv.classList.add('text-center')
     parentDiv.style.display = 'grid'
-    parentDiv.style.gridTemplateColumns = 'repeat(5, 1fr)'
+    parentDiv.style.gridTemplateColumns = 'repeat(4, 1fr)'
     // Adding All Element in Result-Box div
     resultBox.textContent = ''
     resultBox.append(parentDiv)
